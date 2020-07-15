@@ -1,0 +1,9 @@
+[submodule "custom/plugins/zsh-autosuggestions"]
+	path = custom/plugins/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+[submodule "custom/plugins/zsh-z"]
+	path = custom/plugins/zsh-z
+	url = git@github.com:agkozak/zsh-z.git
+[submodule "custom/themes/powerlevel10k"]
+	path = custom/themes/powerlevel10k
+	url = git@github.com:romkatv/powerlevel10k.git
