@@ -7,3 +7,6 @@
 [submodule "custom/themes/powerlevel10k"]
 	path = custom/themes/powerlevel10k
 	url = git@github.com:romkatv/powerlevel10k.git
+[submodule "custom/plugins/autoupdate"]
+	path = custom/plugins/autoupdate
+	url = git@github.com:TamCore/autoupdate-oh-my-zsh-plugins.git
