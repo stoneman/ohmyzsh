@@ -14,9 +14,15 @@ jobs:
         with:
           ref: master
           fetch-depth: 0
-      - name: Merge Upstream
-        uses: exions/merge-upstream@v1
-        with:
-          upstream: ohmyzsh/ohmyzsh
-          upstream-branch: master
-          branch: master
+      - run: |
+          set -ex;
+          echo ${{ github.token }} | gh auth login --with-token;
+          git remote add upstream https://github.com/ohmyzsh/ohmyzsh
+          git fetch upstream master;
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com";
+          git config --local user.name  "GitHub Actions";
+          git rebase upstream/master;
+          if [ "$(git status | grep diverged)" ]; then
+              git push origin $(git branch --show-current) --force-with-lease;
+          fi;
+        shell: bash
