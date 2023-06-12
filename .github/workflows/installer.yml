@@ -33,24 +33,24 @@ jobs:
       - name: Test installer
         run: sh ./tools/install.sh
 
-  deploy:
-    name: Deploy installer in install.ohmyz.sh
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    environment: vercel
-    needs:
-      - test
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-      - name: Setup project and deploy
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          cp tools/install.sh .github/workflows/installer/install.sh
-          cd .github/workflows/installer
-          vc deploy --prod -t "$VERCEL_TOKEN"
+  # deploy:
+  #   name: Deploy installer in install.ohmyz.sh
+  #   if: github.ref == 'refs/heads/master'
+  #   runs-on: ubuntu-latest
+  #   environment: vercel
+  #   needs:
+  #     - test
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Install Vercel CLI
+  #       run: npm install -g vercel
+  #     - name: Setup project and deploy
+  #       env:
+  #         VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  #         VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  #         VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  #       run: |
+  #         cp tools/install.sh .github/workflows/installer/install.sh
+  #         cd .github/workflows/installer
+  #         vc deploy --prod -t "$VERCEL_TOKEN"
