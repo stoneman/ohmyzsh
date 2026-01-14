@@ -14,15 +14,19 @@ jobs:
         with:
           ref: master
           fetch-depth: 0
+          persist-credentials: false
       - run: |
           set -ex;
-          echo ${{ github.token }} | gh auth login --with-token;
+          echo ${WORKFLOW_TOKEN} | gh auth login --with-token;
           git remote add upstream https://github.com/ohmyzsh/ohmyzsh
           git fetch upstream master;
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com";
           git config --local user.name  "GitHub Actions";
           git rebase upstream/master;
           if [ "$(git status | grep diverged)" ]; then
-              git push origin $(git branch --show-current) --force-with-lease;
+              ORIGIN_URL=$(git remote get-url origin);
+              git push "${ORIGIN_URL/https:\/\//https:\/\/$WORKFLOW_TOKEN@}" $(git branch --show-current) --force;
           fi;
         shell: bash
+        env:
+          WORKFLOW_TOKEN: ${{ secrets.PULL_UPSTREAM_PAT }}
